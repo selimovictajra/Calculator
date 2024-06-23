@@ -28,7 +28,7 @@ public class CalculatorImpl
 
     public void ParseExpression(string input)
     {
-        // If operators and operands are devided by space
+        // If operators and operands are divided by space
         if (!IsValidExpression(input))
         {
             Expression = "";
@@ -41,7 +41,7 @@ public class CalculatorImpl
 
     private bool IsValidExpression(string input)
     {
-        string[] validOperators = { "+", "-", "*", "/", "%", "(", ")" };
+        string[] validOperators = { "+", "-", "*", "/", "%" };
 
         for (int i = 0; i < input.Length; i++)
         {
@@ -49,18 +49,8 @@ public class CalculatorImpl
             {
                 if (input[i].ToString() == op)
                 {
-                    // If '(' is on first place
-                    if (i == 0 && input.Length > 1 && input[i + 1] != ' ')
-                    {
-                        return false;
-                    }
-                    // If operator is on last place
-                    else if (i == input.Length - 1 && input.Length > 1 && input[i - 1] != ' ')
-                    {
-                        return false;
-                    }
                     // Operator inside expression
-                    else if (i > 0 && i < input.Length - 1)
+                    if (i > 0 && i < input.Length - 1)
                     {
                         if (input[i - 1] != ' ' || input[i + 1] != ' ')
                         {
