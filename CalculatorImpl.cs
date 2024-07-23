@@ -137,14 +137,40 @@ public class CalculatorImpl
             }
             if ((parts[i] == "*" || parts[i] == "/" || parts[i] == "%") && i - 1 >= 0 && i + 1 < parts.Count)
             {
-                double first = Convert.ToDouble(parts[i - 1]);
-                //Console.WriteLine(first);
-                double second = Convert.ToDouble(parts[i + 1]);
+                // First number
+                double first = 0;
+                int EPos = parts[i - 1].IndexOf("E");
+                if (EPos >= 0)
+                {
+                    string first1 = parts[i - 1].Substring(0, EPos);
+                    string first2 = parts[i - 1].Substring(EPos + 1);
+                    first = Convert.ToDouble(first1) * Math.Pow(10, Convert.ToDouble(first2));
+                }
+                else
+                {
+                    first = Convert.ToDouble(parts[i - 1]);
+                }
+                
+                // Second number
+                double second = 0;
+                EPos = parts[i + 1].IndexOf("E");
+                if (EPos >= 0)
+                {
+                    string second1 = parts[i + 1].Substring(0, EPos);
+                    string second2 = parts[i + 1].Substring(EPos + 1);
+                    second = Convert.ToDouble(second1) * Math.Pow(10, Convert.ToDouble(second2));
+
+                }
+                else
+                {
+                    second = Convert.ToDouble(parts[i + 1]);
+                }
+                
                 double res = 0;
                 if (parts[i] == "*") { res = first * second; }
                 else if (parts[i] == "/") { res = first / second; }
                 else if (parts[i] == "%") { res = first % second; }
-
+                
                 List<string> newParts = new List<string>();
                 for (int j = 0; j < i - 1; j++)
                 {
@@ -178,8 +204,35 @@ public class CalculatorImpl
             }
             if ((parts[i] == "+" || parts[i] == "-") && i - 1 >= 0 && i + 1 < parts.Count)
             {
-                double first = Convert.ToDouble(parts[i - 1]);
-                double second = Convert.ToDouble(parts[i + 1]);
+                // First number
+                double first = 0;
+                int EPos = parts[i - 1].IndexOf("E");
+                if (EPos >= 0)
+                {
+                    string first1 = parts[i - 1].Substring(0, EPos);
+                    string first2 = parts[i - 1].Substring(EPos + 1);
+                    first = Convert.ToDouble(first1) * Math.Pow(10, Convert.ToDouble(first2));
+                }
+                else
+                {
+                    first = Convert.ToDouble(parts[i - 1]);
+                }
+
+                // Second number
+                double second = 0;
+                EPos = parts[i + 1].IndexOf("E");
+                if (EPos >= 0)
+                {
+                    string second1 = parts[i + 1].Substring(0, EPos);
+                    string second2 = parts[i + 1].Substring(EPos + 1);
+                    second = Convert.ToDouble(second1) * Math.Pow(10, Convert.ToDouble(second2));
+                    
+                }
+                else
+                {
+                    second = Convert.ToDouble(parts[i + 1]);
+                }
+
                 double res = 0;
                 if (parts[i] == "+") { res = first + second; }
                 else if (parts[i] == "-") { res = first - second; }
