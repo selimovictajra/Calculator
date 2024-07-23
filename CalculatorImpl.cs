@@ -142,30 +142,67 @@ public class CalculatorImpl
                 int EPos = parts[i - 1].IndexOf("E");
                 if (EPos >= 0)
                 {
+                    // First part
                     string first1 = parts[i - 1].Substring(0, EPos);
+                    int DPos = first1.IndexOf('.');
+                    if (DPos >= 0)
+                    {
+                        first1 = first1.Substring(0, DPos) + ',' + first1.Substring(DPos + 1);
+                    }
+
+                    // Second part
                     string first2 = parts[i - 1].Substring(EPos + 1);
+                    DPos = first2.IndexOf('.');
+                    if (DPos >= 0)
+                    {
+                        first2 = first2.Substring(0, DPos) + ',' + first2.Substring(DPos + 1);
+                    }
+                    
                     first = Convert.ToDouble(first1) * Math.Pow(10, Convert.ToDouble(first2));
                 }
                 else
                 {
+                    int DPos = parts[i - 1].IndexOf('.');
+                    if (DPos >= 0)
+                    {
+                        parts[i - 1] = parts[i - 1].Substring(0, DPos) + ',' + parts[i - 1].Substring(DPos + 1);
+                    }
                     first = Convert.ToDouble(parts[i - 1]);
                 }
-                
+
                 // Second number
                 double second = 0;
                 EPos = parts[i + 1].IndexOf("E");
                 if (EPos >= 0)
                 {
+                    // First part
                     string second1 = parts[i + 1].Substring(0, EPos);
-                    string second2 = parts[i + 1].Substring(EPos + 1);
-                    second = Convert.ToDouble(second1) * Math.Pow(10, Convert.ToDouble(second2));
+                    int CPos = second1.IndexOf('.');
+                    if (CPos >= 0)
+                    {
+                        second1 = second1.Substring(0, CPos) + ',' + second1.Substring(CPos + 1);
+                    }
 
+                    // Second part
+                    string second2 = parts[i + 1].Substring(EPos + 1);
+                    CPos = second2.IndexOf('.');
+                    if (CPos >= 0)
+                    {
+                        second2 = second2.Substring(0, CPos) + ',' + second2.Substring(CPos + 1);
+                    }
+
+                    second = Convert.ToDouble(second1) * Math.Pow(10, Convert.ToDouble(second2));
                 }
                 else
                 {
+                    int CPos = parts[i + 1].IndexOf('.');
+                    if (CPos >= 0)
+                    {
+                        parts[i + 1] = parts[i + 1].Substring(0, CPos) + ',' + parts[i + 1].Substring(CPos + 1);
+                    }
                     second = Convert.ToDouble(parts[i + 1]);
                 }
-                
+
                 double res = 0;
                 if (parts[i] == "*") { res = first * second; }
                 else if (parts[i] == "/") { res = first / second; }
@@ -209,12 +246,31 @@ public class CalculatorImpl
                 int EPos = parts[i - 1].IndexOf("E");
                 if (EPos >= 0)
                 {
+                    // First part
                     string first1 = parts[i - 1].Substring(0, EPos);
+                    int CPos = first1.IndexOf('.');
+                    if (CPos >= 0)
+                    {
+                        first1 = first1.Substring(0, CPos) + ',' + first1.Substring(CPos + 1);
+                    }
+
+                    // Second part
                     string first2 = parts[i - 1].Substring(EPos + 1);
+                    CPos = first2.IndexOf('.');
+                    if (CPos >= 0)
+                    {
+                        first2 = first2.Substring(0, CPos) + ',' + first2.Substring(CPos + 1);
+                    }
+
                     first = Convert.ToDouble(first1) * Math.Pow(10, Convert.ToDouble(first2));
                 }
                 else
                 {
+                    int CPos = parts[i - 1].IndexOf('.');
+                    if (CPos >= 0)
+                    {
+                        parts[i - 1] = parts[i - 1].Substring(0, CPos) + ',' + parts[i - 1].Substring(CPos + 1);
+                    }
                     first = Convert.ToDouble(parts[i - 1]);
                 }
 
@@ -223,13 +279,31 @@ public class CalculatorImpl
                 EPos = parts[i + 1].IndexOf("E");
                 if (EPos >= 0)
                 {
+                    // First part
                     string second1 = parts[i + 1].Substring(0, EPos);
+                    int CPos = second1.IndexOf('.');
+                    if (CPos >= 0)
+                    {
+                        second1 = second1.Substring(0, CPos) + ',' + second1.Substring(CPos + 1);
+                    }
+
+                    // Second part
                     string second2 = parts[i + 1].Substring(EPos + 1);
+                    CPos = second2.IndexOf('.');
+                    if (CPos >= 0)
+                    {
+                        second2 = second2.Substring(0, CPos) + ',' + second2.Substring(CPos + 1);
+                    }
+
                     second = Convert.ToDouble(second1) * Math.Pow(10, Convert.ToDouble(second2));
-                    
                 }
                 else
                 {
+                    int CPos = parts[i + 1].IndexOf('.');
+                    if (CPos >= 0)
+                    {
+                        parts[i + 1] = parts[i + 1].Substring(0, CPos) + ',' + parts[i + 1].Substring(CPos + 1);
+                    }
                     second = Convert.ToDouble(parts[i + 1]);
                 }
 
