@@ -59,7 +59,7 @@ public class CalculatorImpl
             for (int i = 2; i < input.Length; i++)
             {
                 char c = input[i];
-                if (!(c > '0' && c < '9') && c != 'E' && c != '(' && c != ')' && c != '+' && c != '-' && c != '*'
+                if (c > '9' && c != 'E' && c != '(' && c != ')' && c != '+' && c != '-' && c != '*'
                     && c != '/' && c != '%' && c != ' ' && c != '.' && c != ',')
                 {
                     return false;
@@ -82,7 +82,7 @@ public class CalculatorImpl
         for (int i = 0; i < input.Length; i++)
         {
             char c = input[i];
-            if (!(c > '0' && c < '9') && c != 'E' && c != '(' && c != ')' && c != '+' && c != '-' && c != '*'
+            if (c > '9' && c != 'E' && c != '(' && c != ')' && c != '+' && c != '-' && c != '*'
                 && c != '/' && c != '%' && c != ' ' && c != '.' && c != ',')
             {
                 return false;
@@ -112,19 +112,33 @@ public class CalculatorImpl
         string[] splitParts = Expression.Split(' ');
         List<string> parts = splitParts.ToList();
 
+        int pos1 = 0; int pos2 = parts.Count - 1;
+        for (int l = 0; l < parts.Count; l++)
+        {
+            if (parts[l] == "(" && l + 1 < parts.Count)
+            {
+                pos1 = l + 1;
+            }
+            if (parts[l] == ")")
+            {
+                pos2 = l;
+            }
+        }
+
+        // First operators * / %
         for (int i = 0; i < parts.Count; i++)
         {
             if (parts[0] == "-" && i == 0 && parts.Count > 3)
             {
                 double num = Convert.ToDouble(parts[1]);
-                num = num * (-1);
+                num *= (-1);
                 parts[1] = num.ToString();
                 parts.RemoveAt(0);
             }
             if ((parts[i] == "*" || parts[i] == "/" || parts[i] == "%") && i - 1 >= 0 && i + 1 < parts.Count)
             {
                 double first = Convert.ToDouble(parts[i - 1]);
-                Console.WriteLine(first);
+                //Console.WriteLine(first);
                 double second = Convert.ToDouble(parts[i + 1]);
                 double res = 0;
                 if (parts[i] == "*") { res = first * second; }
@@ -152,12 +166,13 @@ public class CalculatorImpl
             }
         }
 
+        // Second operators + -
         for (int i = 0; i < parts.Count; i++)
         {
             if (parts[0] == "-" && i == 0 && parts.Count > 3)
             {
                 double num = Convert.ToDouble(parts[1]);
-                num = num * (-1);
+                num *= (-1);
                 parts[1] = num.ToString();
                 parts.RemoveAt(0);
             }
